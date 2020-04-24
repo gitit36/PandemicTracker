@@ -3,27 +3,21 @@ from flask import Flask, render_template, request, session, url_for, redirect
 import pymysql.cursors
 import datetime
 import hashlib
+from Models.Database import Database
 
 # Initialize the app from Flask
 app = Flask(__name__)
 
-
-# Configure MySQL
-conn = pymysql.connect(
-    host="localhost",
-    port=8889,
-    user="root",
-    password="root",
-    db="PandemicTracker",
-    charset="utf8mb4",
-    cursorclass=pymysql.cursors.DictCursor,
-)
+Database = Database()
 
 
 # Define a route to hello function
 @app.route("/")
 def hello():
-    return render_template("home.html")
+    data = Database.searchCountry("Wow")
+    print(data)
+
+    return render_template("home.html", countries=data)
 
 
 # Run the app on localhost port 5000
