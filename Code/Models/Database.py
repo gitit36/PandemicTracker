@@ -1,4 +1,5 @@
 import pymysql.cursors
+from Models.CountryList import CountryList
 
 
 class Database:
@@ -23,18 +24,33 @@ class Database:
         cursor.close()
         return data
 
-    def updateCountryHealthcare(self, country, numCases, numDeaths, numRecovered, numTests, numHospitalBeds):
+    def addCountries(self):
         cursor = self.conn.cursor()
-        query = "UPDATE Country SET numCases = %d, numDeaths = %d, numRecovered = %d, numTests = %d, numTests = %s, numHospitalBeds = %d WHERE countryName = %s)
-        cursor.execute(query, (numCases, numDeaths, numRecovered, numTests, numHospitalBeds, country))
-        conn.commit()
+        query = "INSERT INTO Country VALUES (%s, %d, %d, %d, %d, %d, %s)"
+        for country in CountryList:
+            cursor.execute(query, (country.countryName, 0, 0, 0, 0, 0, " "))
+            self.conn.commit()
+        cursor.close()
+
+    def updateCountryHealthcare(
+        self, country, numCases, numDeaths, numRecovered, numTests, numHospitalBeds
+    ):
+        cursor = self.conn.cursor()
+        query = "UPDATE Country SET numCases = %d, numDeaths = %d, numRecovered = %d, numTests = %d, numHospitalBeds = %d WHERE countryName = %s)"
+        cursor.execute(
+            query,
+            (numCases, numDeaths, numRecovered, numTests, numHospitalBeds, country),
+        )
+        self.conn.commit()
         cursor.close()
 
     def updateCountryTravelRestrictions(self, country, latestTravelRestriction):
         cursor = self.conn.cursor()
-        query = "UPDATE Country SET latestTravelRestriction = %s WHERE countryName = %s)
+        query = (
+            "UPDATE Country SET latestTravelRestriction = %s WHERE countryName = %s)"
+        )
         cursor.execute(query, (latestTravelRestriction, country))
-        conn.commit()
+        self.conn.commit()
         cursor.close()
 
     def updateCountryHospitalBeds(self, country):

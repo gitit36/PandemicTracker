@@ -4,11 +4,13 @@ import pymysql.cursors
 import datetime
 import hashlib
 from Models.Database import Database
+from Models.CountryList import CountryList
 
 # Initialize the app from Flask
 app = Flask(__name__)
 
 Database = Database()
+CountryList = CountryList()
 
 
 # Define a route to hello function
