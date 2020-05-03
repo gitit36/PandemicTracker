@@ -14,6 +14,7 @@ class Database:
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
         )
+        self.CountryList = CountryList()
 
     def searchCountry(self, country):
         print(country)
@@ -25,12 +26,14 @@ class Database:
         return data
 
     def addCountries(self):
+
         cursor = self.conn.cursor()
-        query = "INSERT INTO Country VALUES (%s, %d, %d, %d, %d, %d, %s)"
-        for country in CountryList:
-            cursor.execute(query, (country.countryName, 0, 0, 0, 0, 0, " "))
+        query = "INSERT INTO Country (countryName, numCases, numDeaths, numRecovered, numTests, numHospitalBeds, latestTravelRestriction) VALUES (%s, 0, 0, 0, 0, 0, NULL)"
+        for country in self.CountryList.countryList:
+            cursor.execute(query, country.countryName)
             self.conn.commit()
         cursor.close()
+        print("success")
 
     def updateCountryHealthcare(
         self, country, numCases, numDeaths, numRecovered, numTests, numHospitalBeds

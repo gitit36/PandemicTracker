@@ -6,3 +6,7 @@
 export FLASK_APP=init.py
 python -m flask run
  * Running on http://127.0.0.1:5000/
+
+
+
+ To populate the database, run the file, "run this once".

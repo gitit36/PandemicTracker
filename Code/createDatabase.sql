@@ -1,5 +1,5 @@
 CREATE TABLE Country(
-    countryName VARCHAR(20), 
+    countryName VARCHAR(50), 
     numCases int, 
     numDeaths int,
     numRecovered int,
