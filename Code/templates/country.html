@@ -1,0 +1,49 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+	<br>
+	<center><h1>Country List</h1></center>
+	<br><br>
+<center><form action="/country" method="GET">
+</form>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+
+<table>
+	<th>Country</th>
+	<th>Number of Cases</th>
+	<th>Number of Deaths</th>
+	<th>Number of Recoveries</th>
+    <th>Number of Tests</th>
+    <th>Number of Hospital Beds</th>
+    <th>Latest Travel Restrictions</th>
+
+{% for country in countries %}
+	<tr>
+		<td>{{country.countryName}}</td>
+		<td>{{country.numCases}}</td>
+		<td>{{country.numDeaths}}</td>
+		<td>{{country.numRecovered}}</td>
+        <td>{{country.numTests}}</td>
+        <td>{{country.numHospitalBeds}}</td>
+        <td>{{country.latestTravelRestriction}}</td>
+	</tr>
+{% endfor %}
+
+
+</table></center>
+
+<br>
+
+<center><a href="/">Go back</a></center>
+
+</body>
+
+</html>
