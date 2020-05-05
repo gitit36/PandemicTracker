@@ -7,6 +7,9 @@ import pandas as pd
 
 class StatsScraper:
 	lastScraped = date(2020, 4, 24)
+	globalConfirmed = 0 # Global case data, stored as class variables for easy access
+	globalDeaths = 0
+	globalRecovered = 0
 
 	def checkVersion(self): # Checks for last scraping time--scraping is only done if the current version is outdated
 		if self.lastScraped != date.today():
@@ -24,7 +27,7 @@ class StatsScraper:
 	def scrapeCases(self): # Scrapes the most recent case data
 
 		if self.checkVersion() == False:
-			return "Stats database already up to date."
+			return "Stats database already up to date.", self.globalConfirmed, self.globalDeaths, self.globalRecovered
 
 		# Accessing the github pages
 		responseConfirmed = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
@@ -56,9 +59,11 @@ class StatsScraper:
 			
 			currentConfirmed = countryConfirmed.find_all("td")[todaysIndex].get_text()
 			confirmed.append(int(currentConfirmed))
+			self.globalConfirmed += int(currentConfirmed)
 			
 			currentDeaths = countryDeaths.find_all("td")[todaysIndex].get_text()
 			deaths.append(int(currentDeaths))
+			self.globalDeaths += int(currentDeaths)
 
 			print(countryName, "total cases and deaths scraped.")
 			
@@ -78,6 +83,7 @@ class StatsScraper:
 
 			currentRecovered = countryRecovered.find_all("td")[todaysIndex].get_text()
 			recovered.append(int(currentRecovered))
+			self.globalRecovered += int(currentRecovered)
 
 			print(countryName, "recovered cases scraped.")
 			
@@ -89,7 +95,7 @@ class StatsScraper:
 
 		self.lastScraped = date.today() # Update dataset version
 
-		return dfAll
+		return dfAll, self.globalConfirmed, self.globalDeaths, self.globalRecovered
 
 	def mergeDataFrames(self, dfConfD, dfRec):
 
@@ -109,4 +115,4 @@ class StatsScraper:
 		return dfAll
 
 StatsScraper = StatsScraper()
-StatsScraper.scrapeCases()
+print(StatsScraper.scrapeCases())

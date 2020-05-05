@@ -35,10 +35,11 @@ class TravelScraper:
 		if self.checkVersion() == False:
 			return "Travel database already up to date."
 
-		travelWiki = requests.get("https://en.wikipedia.org/wiki/Travel_restrictions_related_to_the_2019%E2%80%9320_coronavirus_pandemic")
+		travelWiki = requests.get("https://en.wikipedia.org/w/index.php?title=Travel_restrictions_related_to_the_COVID-19_pandemic&oldid=954913741")
 		soupWiki = bs(travelWiki.text,"html.parser")
 
 		listStart, listEnd = self.getListBoundaries(soupWiki)
+		print(listStart, listEnd)
 
 		travelAdv = ""
 		countries = []
@@ -63,12 +64,11 @@ class TravelScraper:
 		# Create dataframe
 		dataTravel = {'countryName': countries, 'travelAdv': travelAdvs}
 		dfTravel = pd.DataFrame(dataTravel, columns=['countryName', 'travelAdv'])
-		print(dfTravel.to_string())
 
 		self.lastScraped = date.today() # Update dataset version
 
 		return dfTravel
 
 TravelScraper = TravelScraper()
-TravelScraper.scrapeTravel()
-TravelScraper.scrapeTravel()
+print(TravelScraper.scrapeTravel().to_string())
+#print(TravelScraper.scrapeTravel())
