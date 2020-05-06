@@ -11,7 +11,7 @@ class Database:
             user="root",
             password="root",
             db="PandemicTracker",
-            charset="utf8mb4",
+            charset="utf8",
             cursorclass=pymysql.cursors.DictCursor,
         )
         self.CountryList = CountryList()
@@ -21,6 +21,14 @@ class Database:
         cursor = self.conn.cursor()
         query = "SELECT * FROM Country WHERE countryName = %s"
         cursor.execute(query, country)
+        data = cursor.fetchall()
+        cursor.close()
+        return data
+
+    def viewCountry(self):
+        cursor = self.conn.cursor()
+        query = 'SELECT countryName, numCases, numDeaths, numRecovered, numTests, numHospitalBeds, latestTravelRestriction FROM Country'
+        cursor.execute(query)
         data = cursor.fetchall()
         cursor.close()
         return data
