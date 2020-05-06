@@ -16,10 +16,16 @@ CountryList = CountryList()
 # Define a route to hello function
 @app.route("/")
 def hello():
-    data = Database.searchCountry("Wow")
+    data = Database.searchCountry("Algeria")
     print(data)
-
     return render_template("home.html", countries=data)
+
+
+@app.route("/country") #, methods=["GET","POST"]'''
+def countrystat():
+    data = Database.viewCountry()
+    print(data)
+    return render_template('country.html',countries=data)
 
 
 # Run the app on localhost port 5000
@@ -27,4 +33,3 @@ def hello():
 # for changes to go through, TURN OFF FOR PRODUCTION
 if __name__ == "__main__":
     app.run("127.0.0.1", 5000, debug=True)
-
