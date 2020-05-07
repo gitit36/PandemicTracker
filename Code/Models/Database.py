@@ -75,4 +75,3 @@ class Database:
 
     def updateWorldStats(self):
         pass
-
