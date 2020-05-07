@@ -36,6 +36,9 @@ class TravelScraper:
 			return "Travel database already up to date."
 
 		travelWiki = requests.get("https://en.wikipedia.org/w/index.php?title=Travel_restrictions_related_to_the_COVID-19_pandemic&oldid=954913741")
+		if (travelWiki.status_code != 200):
+			return "Error: could not access travel restriction dataset."
+
 		soupWiki = bs(travelWiki.text,"html.parser")
 
 		listStart, listEnd = self.getListBoundaries(soupWiki)
