@@ -88,3 +88,12 @@ class HealthcareScraper:
 		self.lastScraped = date.today().year # Update dataset version
 
 		return dfDocs
+
+	def scrapeHealthcare(self): # Calls the scrapers and merges the two dataframes
+
+		dfBeds = self.scrapeBeds()
+		dfDocs = self.scrapeDocs()
+
+		dfHealthcare = pd.merge(dfDocs, dfBeds, on="countryName")
+
+		return dfHealthcare
