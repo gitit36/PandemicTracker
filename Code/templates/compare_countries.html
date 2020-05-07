@@ -12,7 +12,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -133,14 +132,14 @@
 <div class="row">
 <div class="col"></div>
 <div class="col">
-<select name="country1" id="country1" class="form-control" onchange="handleChange('country1',this.value)">
+<select name="country1" id="country1" class="form-control" onchange="handleChange('country1',this.value,this)">
     {% for country in countries %}
     <option value="{{country.countryName}}">{{country.countryName}}</option>
     {% endfor %}
 </select>
 </div>
 <div class="col">
-<select name="country2" id="country2" class="form-control" onchange="handleChange('country2',this.value)">
+<select name="country2" id="country2" class="form-control" onchange="handleChange('country2',this.value,this)">
     {% for country in countries %}
     <option value="{{country.countryName}}">{{country.countryName}}</option>
     {% endfor %}
@@ -174,8 +173,8 @@
 <thead>
     <tr>
       <th scope="col"></th>
-      <th id="country1name" scope="col">Afghanistan:</th>
-      <th id="country2name" scope="col">Afghanistan:</th>
+      <th id="country1name" scope="col"> Afghanistan </th>
+      <th id="country2name" scope="col"> Albania </th>
     </tr>
   </thead>
   <tbody>
@@ -211,8 +210,8 @@
 
   <tr>
   <th scope="row">Latest Travel Restrictions:</th>
-  <td id ="country1restrictions">0</td>
-  <td id ="country2restrictions">0</td>
+  <td id ="country1restrictions"> </td>
+  <td id ="country2restrictions"> </td>
   </tr>
 
 </table>
@@ -240,6 +239,27 @@
     </style>
 
     <script>
+
+    var myCountries = {{countries|tojson}};
+    document.getElementById("country1name").innerHTML = myCountries[0].countryName;
+    document.getElementById("country1cases").innerHTML = myCountries[0].numCases;
+    document.getElementById("country1deaths").innerHTML = myCountries[0].numDeaths;
+    document.getElementById("country1recoveries").innerHTML = myCountries[0].numRecovered;
+    document.getElementById("country1tests").innerHTML = myCountries[0].numTests;
+    document.getElementById("country1beds").innerHTML = myCountries[0].numHospitalBeds;
+    document.getElementById("country1restrictions").innerHTML = myCountries[0].latestTravelRestriction;
+    document.getElementById("country2name").innerHTML = myCountries[1].countryName;
+    document.getElementById("country2cases").innerHTML = myCountries[1].numCases;
+    document.getElementById("country2deaths").innerHTML = myCountries[1].numDeaths;
+    document.getElementById("country2recoveries").innerHTML = myCountries[1].numRecovered;
+    document.getElementById("country2tests").innerHTML = myCountries[1].numTests;
+    document.getElementById("country2beds").innerHTML = myCountries[1].numHospitalBeds;
+    document.getElementById("country2restrictions").innerHTML = myCountries[1].latestTravelRestriction;
+
+    document.getElementById("country2").options[0].disabled = true;
+    document.getElementById("country2").selectedIndex = 1;
+    document.getElementById("country1").options[1].disabled = true;
+
     function handleChange(id,name)
     {
       document.getElementById(id + "name").innerHTML = name;
@@ -255,5 +275,15 @@
           document.getElementById(id + "restrictions").innerHTML = myCountries[i].latestTravelRestriction;
         }
       }
+
+      if(id == "country1") var id2 = "country2";
+      else var id2 = "country1";
+      var currentIndex = document.getElementById(id).selectedIndex;
+
+      for(var i=0; i < document.getElementById(id2).options.length; i++)
+      {
+        document.getElementById(id2).options[i].disabled = false;
+      }
+      document.getElementById(id2).options[currentIndex].disabled = true;
     }
     </script>
