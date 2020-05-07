@@ -119,30 +119,28 @@
 <div class="col"></div>
 <div class="col">
 <center>
-<h5>Country 1:</h5>
+<h4>Country 1:</h4>
 </center>
 </div>
 <div class="col">
 <center>
-<h5>Country 2:</h5>
+<h4>Country 2:</h4>
 </center>
 </div>
 <div class="col"></div>
 </div>
 
-<br>
-
 <div class="row">
 <div class="col"></div>
 <div class="col">
-<select name="country1" id="country1" class="form-control" onchange="changeCountry('country1name',this.value)">
+<select name="country1" id="country1" class="form-control" onchange="handleChange('country1',this.value)">
     {% for country in countries %}
     <option value="{{country.countryName}}">{{country.countryName}}</option>
     {% endfor %}
 </select>
 </div>
 <div class="col">
-<select name="country2" id="country2" class="form-control" onchange="changeCountry('country2name',this.value)">
+<select name="country2" id="country2" class="form-control" onchange="handleChange('country2',this.value)">
     {% for country in countries %}
     <option value="{{country.countryName}}">{{country.countryName}}</option>
     {% endfor %}
@@ -151,12 +149,7 @@
 <div class="col"></div>
 </div>
 
-
 <br>
-
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-</head>
 
 <style type="text/css">
   table, td{
@@ -247,8 +240,20 @@
     </style>
 
     <script>
-    function changeCountry(id,text)
+    function handleChange(id,name)
     {
-        document.getElementById(id).innerHTML = text;
+      document.getElementById(id + "name").innerHTML = name;
+      var myCountries = {{countries|tojson}};
+      for (var i = 0; i < myCountries.length; i++) {
+        if(myCountries[i].countryName == name)
+        {
+          document.getElementById(id + "cases").innerHTML = myCountries[i].numCases;
+          document.getElementById(id + "deaths").innerHTML = myCountries[i].numDeaths;
+          document.getElementById(id + "recoveries").innerHTML = myCountries[i].numRecovered;
+          document.getElementById(id + "tests").innerHTML = myCountries[i].numTests;
+          document.getElementById(id + "beds").innerHTML = myCountries[i].numHospitalBeds;
+          document.getElementById(id + "restrictions").innerHTML = myCountries[i].latestTravelRestriction;
+        }
+      }
     }
     </script>
