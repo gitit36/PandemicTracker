@@ -39,11 +39,10 @@ class Database:
         return data
 
     def addCountries(self):
-
         cursor = self.conn.cursor()
         query = "INSERT INTO Country (countryName, numCases, numDeaths, numRecovered, numTests, numHospitalBeds, latestTravelRestriction) VALUES (%s, 0, 0, 0, 0, 0, NULL)"
         for country in self.CountryList.countryList:
-            cursor.execute(query, country)
+            cursor.execute(query, country.countryName)
             self.conn.commit()
         cursor.close()
         print("success")

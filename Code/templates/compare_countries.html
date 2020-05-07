@@ -40,7 +40,7 @@
             .my-md-0 {
                 margin-top: 0 !important;
             }
-        
+
 
         .col-lg-4 {
             padding-bottom: 10;
@@ -75,27 +75,49 @@
   					<span class="navbar-toggler-icon"></span>
   				</button>
   				<div class="collapse navbar-collapse" id="navbarCollapse">
-  					<ul class="navbar-nav mr-auto">
-  						<li class="nav-item">
-  							<a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> Compare Countries </a>
-  						</li>
-  						<li class="nav-item">
-  							<a class="nav-link" href="http://127.0.0.1:5000/country"> Country </a>
-  						</li>
-  						<li class="nav-item">
-  							<a class="nav-link" href="{{url_for('hello') }}"> Health Guideline </a>
-  						</li>
-  						<li class="nav-item">
-  							<a class="nav-link" href="{{url_for('hello') }}"> About </a>
-  						</li>
-
-  					</ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries  &nbsp;  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:5000/country">   &nbsp; Country  &nbsp; </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('hello') }}">  &nbsp; Health Guideline &nbsp;  </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('hello') }}">  &nbsp; About  &nbsp; </a>
+            </li>
+          </ul>
   				</div>
   			</nav>
     </header>
     <main role='main'>
+
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+
         <!-- Feed -->
         {% if countries %}
+        <br>
+        <center><h1>Compare Countries</h1></center>
+
+        <div class="dropdown">
+
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+
+        </div>
+
         <h1>Countries</h1>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
