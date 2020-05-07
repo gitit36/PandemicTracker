@@ -68,7 +68,7 @@
 		<header>
 			<!-- NavBar -->
 			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-				<a class="navbar-brand" href="http://127.0.0.1:5000">Pandemic Tracker</a>
+				<a class="navbar-brand" href="http://127.0.0.1:5000/">Pandemic Tracker</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
 					aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -76,19 +76,16 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
-								<a class="nav-link" href="http://127.0.0.1:5000/">Home</a>
+							<a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> Compare Countries </a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="http://127.0.0.1:5000/compare_countries">Compare Countries</a>
+							<a class="nav-link" href="http://127.0.0.1:5000/country"> Country </a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="http://127.0.0.1:5000/country"> Country</a>
+							<a class="nav-link" href="{{url_for('hello') }}"> Health Guideline </a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{url_for('hello') }}">Health Guideline</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{url_for('hello') }}">About</a>
+							<a class="nav-link" href="{{url_for('hello') }}"> About </a>
 						</li>
 
 					</ul>

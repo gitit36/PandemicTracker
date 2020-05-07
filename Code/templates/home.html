@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -68,32 +69,29 @@
     <header>
         <!-- NavBar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Pandemic Tracker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5000/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5000/compare_countries">Compare Countries</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5000/country"> Country</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('hello') }}">Health Guideline</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('hello') }}">About</a>
-                    </li>
+  				<a class="navbar-brand" href="http://127.0.0.1:5000/">Pandemic Tracker</a>
+  				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+  					aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  					<span class="navbar-toggler-icon"></span>
+  				</button>
+  				<div class="collapse navbar-collapse" id="navbarCollapse">
+  					<ul class="navbar-nav mr-auto">
+  						<li class="nav-item">
+  							<a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> Compare Countries </a>
+  						</li>
+  						<li class="nav-item">
+  							<a class="nav-link" href="http://127.0.0.1:5000/country"> Country </a>
+  						</li>
+  						<li class="nav-item">
+  							<a class="nav-link" href="{{url_for('hello') }}"> Health Guideline </a>
+  						</li>
+  						<li class="nav-item">
+  							<a class="nav-link" href="{{url_for('hello') }}"> About </a>
+  						</li>
 
-                </ul>
-            </div>
-        </nav>
+  					</ul>
+  				</div>
+  			</nav>
     </header>
     <main role='main'>
         <!-- Feed -->

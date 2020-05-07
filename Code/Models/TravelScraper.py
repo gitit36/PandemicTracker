@@ -57,10 +57,10 @@ class TravelScraper:
 			# Split the created clean advisory into country and info
 			countries.append(travelAdv.split(": ")[0])
 			travelAdvs.append(travelAdv.split(": ")[1])
-			
+
 			print(travelAdv, "\n")
 			travelAdv = ""
-		
+
 		# Create dataframe
 		dataTravel = {'countryName': countries, 'travelAdv': travelAdvs}
 		dfTravel = pd.DataFrame(dataTravel, columns=['countryName', 'travelAdv'])
@@ -68,7 +68,3 @@ class TravelScraper:
 		self.lastScraped = date.today() # Update dataset version
 
 		return dfTravel
-
-TravelScraper = TravelScraper()
-print(TravelScraper.scrapeTravel().to_string())
-#print(TravelScraper.scrapeTravel())
