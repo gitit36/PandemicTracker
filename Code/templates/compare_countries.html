@@ -102,30 +102,42 @@
         <!-- Feed -->
         {% if countries %}
         <br>
-        <center><h1>Compare Countries</h1></center>
+        <center>
+        <h1>Compare Countries</h1>
+        <br>
+        This page allows you to selects attributes and compare two different countries according to those attributes.
+        </center>
 
-        <div class="dropdown">
+        <br><br>
 
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown button
-        </button>
+<center>
+        <div class="btn-group">
+        <center>
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select Country 1
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Select Country 1</a>
+    <div class="dropdown-divider"></div>
+    {% for country in countries %}
+    <a class="dropdown-item" href="#{{country.countryName}}">{{country.countryName}}</a>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select Country 2
+  </button>
+  <div class="dropdown-menu">
+  <a class="dropdown-item" href="#">Select Country 2</a>
+  <div class="dropdown-divider"></div>
+  {% for country in countries %}
+  <a class="dropdown-item" href="#{{country.countryName}}">{{country.countryName}}</a>
+  {% endfor %}
+  </div>
+  </center>
+</div>
+</center>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        </div>
 
-        </div>
-
-        <h1>Countries</h1>
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for country in countries %}
-                <p>{{country.countryName}}</p>
-                {% endfor %}
-            </div>
-        </div>
         {% else %}
         <div class="no-friends">
             <h1>No countries</h1>
