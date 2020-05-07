@@ -137,7 +137,3 @@ class StatsScraper:
         dfAll = pd.merge(dfAll, dfRec, on="countryName")
 
         return dfAll
-
-
-# StatsScraper = StatsScraper()
-# print(StatsScraper.scrapeCases())

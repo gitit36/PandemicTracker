@@ -80,7 +80,7 @@ class Database:
 
     def updateWorldStats(self):
         pass
-<<<<<<< HEAD
+# <<<<<<< HEAD
 
     def updateAllCoutriesHealthcare(self):
         # how do we  time this?
@@ -103,5 +103,5 @@ class Database:
             latestTravelRestriction = row["travelAdv"]
             self.updateCountryTravelRestrictions(countryName, latestTravelRestriction)
 
-=======
->>>>>>> 15caf204401816919fbd989800776cdc644c5c1a
+# =======
+# >>>>>>> 15caf204401816919fbd989800776cdc644c5c1a
