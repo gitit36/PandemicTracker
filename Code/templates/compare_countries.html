@@ -12,6 +12,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -105,38 +106,128 @@
         <center>
         <h1>Compare Countries</h1>
         <br>
-        This page allows you to selects attributes and compare two different countries according to those attributes.
+        <i>
+        This page allows you to compare two different countries according to their Coronavirus data.
+        </i>
         </center>
 
         <br><br>
 
 <center>
-        <div class="btn-group">
-        <center>
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select Country 1
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Select Country 1</a>
-    <div class="dropdown-divider"></div>
-    {% for country in countries %}
-    <a class="dropdown-item" href="#{{country.countryName}}">{{country.countryName}}</a>
-    {% endfor %}
-  </div>
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select Country 2
-  </button>
-  <div class="dropdown-menu">
-  <a class="dropdown-item" href="#">Select Country 2</a>
-  <div class="dropdown-divider"></div>
-  {% for country in countries %}
-  <a class="dropdown-item" href="#{{country.countryName}}">{{country.countryName}}</a>
-  {% endfor %}
-  </div>
-  </center>
-</div>
-</center>
 
+<div class="row">
+<div class="col"></div>
+<div class="col">
+<center>
+<h5>Country 1:</h5>
+</center>
+</div>
+<div class="col">
+<center>
+<h5>Country 2:</h5>
+</center>
+</div>
+<div class="col"></div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col"></div>
+<div class="col">
+<select name="country1" id="country1" class="form-control" onchange="changeCountry('country1name',this.value)">
+    {% for country in countries %}
+    <option value="{{country.countryName}}">{{country.countryName}}</option>
+    {% endfor %}
+</select>
+</div>
+<div class="col">
+<select name="country2" id="country2" class="form-control" onchange="changeCountry('country2name',this.value)">
+    {% for country in countries %}
+    <option value="{{country.countryName}}">{{country.countryName}}</option>
+    {% endfor %}
+</select>
+</div>
+<div class="col"></div>
+</div>
+
+
+<br>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<style type="text/css">
+  table, td{
+    border-bottom: 1px solid black;
+    height: 50px;
+    text-align: center;
+  }
+  th{
+    background-color: #8dc79d;
+    padding: 15px;
+    text-align: center;
+  }
+  tr:hover {background-color: #f5f5f5;}
+</style>
+
+<div style="overflow-x:auto;"></div>
+
+<div class="row">
+<div class="col"></div>
+<div class="col-6">
+<table class="table">
+<thead>
+    <tr>
+      <th scope="col"></th>
+      <th id="country1name" scope="col">Afghanistan:</th>
+      <th id="country2name" scope="col">Afghanistan:</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <th scope="row">Number of Cases:</th>
+  <td id ="country1cases">0</td>
+  <td id ="country2cases">0</td>
+  </tr>
+
+  <tr>
+  <th scope="row">Number of Deaths:</th>
+  <td id ="country1deaths">0</td>
+  <td id ="country2deaths">0</td>
+  </tr>
+
+  <tr>
+  <th scope="row">Number of Recoveries:</th>
+  <td id ="country1recoveries">0</td>
+  <td id ="country2recoveries">0</td>
+  </tr>
+
+  <tr>
+  <th scope="row">Number of Tests:</th>
+  <td id ="country1tests">0</td>
+  <td id ="country2tests">0</td>
+  </tr>
+
+  <tr>
+  <th scope="row">Number of Hospital Beds:</th>
+  <td id ="country1beds">0</td>
+  <td id ="country2beds">0</td>
+  </tr>
+
+  <tr>
+  <th scope="row">Latest Travel Restrictions:</th>
+  <td id ="country1restrictions">0</td>
+  <td id ="country2restrictions">0</td>
+  </tr>
+
+</table>
+</div>
+<div class="col"></div>
+</div>
+
+    <br><br>
 
         {% else %}
         <div class="no-friends">
@@ -154,3 +245,10 @@
             border: 1px solid black;
         }
     </style>
+
+    <script>
+    function changeCountry(id,text)
+    {
+        document.getElementById(id).innerHTML = text;
+    }
+    </script>
