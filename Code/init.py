@@ -20,13 +20,19 @@ def hello():
     print(data)
     return render_template("home.html", countries=data)
 
-
+# Define a route to country function
 @app.route("/country") #, methods=["GET","POST"]'''
 def countrystat():
     data = Database.viewCountry()
     print(data)
     return render_template('country.html',countries=data)
 
+# Define a route to Compare Countries
+@app.route("/compare_countries")
+def countrycompare():
+    data = Database.viewCountry()
+    print(data)
+    return render_template('compare_countries.html',countries=data)
 
 # Run the app on localhost port 5000
 # debug = True -> you don't have to restart flask
