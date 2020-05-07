@@ -1,4 +1,4 @@
-# Gets latest news from the WHO and the CDC
+# Gets latest news from the WHO
 
 from bs4 import BeautifulSoup as bs
 from datetime import date
@@ -30,6 +30,9 @@ class GuidelineScraper:
 		articleCounter = 0 # How many articles have been parsed/do we want
 
 		requestsWHO = requests.get("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen")
+		if (requestsWHO.status_code != 200):
+			return "Error: could not access WHO website."
+
 		soupWHO = bs(requestsWHO.text,"html.parser")
 
 		listStart = self.getListStart(soupWHO)
@@ -74,6 +77,3 @@ class GuidelineScraper:
 		self.lastScraped = date.today() # Update dataset version
 
 		return dfWHO
-
-GuidelineScraper = GuidelineScraper()
-GuidelineScraper.scrapeWHO()
