@@ -105,9 +105,11 @@
         <center>
         <h1>Compare Countries</h1>
         <br>
-        <i>
-        This page allows you to compare two different countries according to their Coronavirus data.
-        </i>
+
+        This page allows you to compare two different territories according to their Coronavirus data.<br>
+        <b>Note: </b> Any country with an asterisk (*) is name-disputed territory.<br>
+        Countries whose data is in <b>bold</b> has larger values for that data.
+
         </center>
 
         <br><br>
@@ -172,7 +174,7 @@
 <table class="table">
 <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col" style="width: 34%"></th>
       <th id="country1name" scope="col"> Afghanistan </th>
       <th id="country2name" scope="col"> Albania </th>
     </tr>
@@ -247,7 +249,12 @@
     document.getElementById("country1recoveries").innerHTML = myCountries[0].numRecovered;
     document.getElementById("country1tests").innerHTML = myCountries[0].numTests;
     document.getElementById("country1beds").innerHTML = myCountries[0].numHospitalBeds;
-    document.getElementById("country1restrictions").innerHTML = myCountries[0].latestTravelRestriction;
+    if(myCountries[0].latestTravelRestriction == null){
+      document.getElementById("country1restrictions").innerHTML = "None";
+    }else{
+      document.getElementById("country1restrictions").innerHTML = myCountries[0].latestTravelRestriction;
+    }
+
     document.getElementById("country2name").innerHTML = myCountries[1].countryName;
     document.getElementById("country2cases").innerHTML = myCountries[1].numCases;
     document.getElementById("country2deaths").innerHTML = myCountries[1].numDeaths;
@@ -255,6 +262,11 @@
     document.getElementById("country2tests").innerHTML = myCountries[1].numTests;
     document.getElementById("country2beds").innerHTML = myCountries[1].numHospitalBeds;
     document.getElementById("country2restrictions").innerHTML = myCountries[1].latestTravelRestriction;
+    if(myCountries[1].latestTravelRestriction == null){
+      document.getElementById("country2restrictions").innerHTML = "None";
+    }else{
+      document.getElementById("country2restrictions").innerHTML = myCountries[1].latestTravelRestriction;
+    }
 
     document.getElementById("country2").options[0].disabled = true;
     document.getElementById("country2").selectedIndex = 1;
@@ -272,10 +284,24 @@
           document.getElementById(id + "recoveries").innerHTML = myCountries[i].numRecovered;
           document.getElementById(id + "tests").innerHTML = myCountries[i].numTests;
           document.getElementById(id + "beds").innerHTML = myCountries[i].numHospitalBeds;
-          document.getElementById(id + "restrictions").innerHTML = myCountries[i].latestTravelRestriction;
+          if(myCountries[i].latestTravelRestriction == null){
+            document.getElementById(id + "restrictions").innerHTML = "None"
+          }
+          else{
+            document.getElementById(id + "restrictions").innerHTML = myCountries[i].latestTravelRestriction;
+          }
         }
       }
+      disableOther(id,name);
+      largestBold("cases");
+      largestBold("deaths");
+      largestBold("recoveries");
+      largestBold("tests");
+      largestBold("beds");
+    }
 
+    function disableOther(id,name)
+    {
       if(id == "country1") var id2 = "country2";
       else var id2 = "country1";
       var currentIndex = document.getElementById(id).selectedIndex;
@@ -286,4 +312,24 @@
       }
       document.getElementById(id2).options[currentIndex].disabled = true;
     }
+
+    function largestBold(field)
+    {
+      if(parseInt(document.getElementById("country1"+field).innerHTML) > parseInt(document.getElementById("country2"+field).innerHTML))
+      {
+        document.getElementById("country1"+field).style.fontWeight = 'bold';
+        document.getElementById("country2"+field).style.fontWeight = 'normal';
+      }
+      else if(parseInt(document.getElementById("country1"+field).innerHTML) == parseInt(document.getElementById("country2"+field).innerHTML))
+      {
+        document.getElementById("country1"+field).style.fontWeight = 'normal';
+        document.getElementById("country2"+field).style.fontWeight = 'normal';
+      }
+      else
+      {
+        document.getElementById("country1"+field).style.fontWeight = 'normal';
+        document.getElementById("country2"+field).style.fontWeight = 'bold';
+      }
+    }
+
     </script>
