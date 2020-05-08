@@ -282,8 +282,7 @@
 
     function handleChange(id, name) {
       document.getElementById(id + "name").innerHTML = name;
-      var myCountries = {{ countries| tojson
-    }};
+      var myCountries = {{ countries| tojson }};
     for (var i = 0; i < myCountries.length; i++) {
       if (myCountries[i].countryName == name) {
         document.getElementById(id + "cases").innerHTML = myCountries[i].numCases;
