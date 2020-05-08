@@ -33,11 +33,11 @@ class TravelScraper:
 	def scrapeTravel(self):
 
 		if self.checkVersion() == False:
-			return "Travel database already up to date."
+			return None
 
 		travelWiki = requests.get("https://en.wikipedia.org/w/index.php?title=Travel_restrictions_related_to_the_COVID-19_pandemic&oldid=954913741")
 		if (travelWiki.status_code != 200):
-			return "Error: could not access travel restriction dataset."
+			return None
 
 		soupWiki = bs(travelWiki.text,"html.parser")
 
@@ -64,9 +64,15 @@ class TravelScraper:
 			print(travelAdv, "\n")
 			travelAdv = ""
 
+
+		# Country name variations between this dataset and the main database, manually checked - will be used to harmonise them
+		missingTravel = ["Taiwan", "UAE", "Democratic Republic of the Congo", "The Gambia", "Czech Republic", "South Korea", "United States"]
+		JHTravel = ["Taiwan*", "United Arab Emirates", "Congo (Kinshasa)", "Gambia", "Czechia", "Korea, South", "US"]
+		
 		# Create dataframe
 		dataTravel = {'countryName': countries, 'travelAdv': travelAdvs}
 		dfTravel = pd.DataFrame(dataTravel, columns=['countryName', 'travelAdv'])
+		dfTravel = dfTravel.replace(missingTravel, JHTravel)
 
 		self.lastScraped = date.today() # Update dataset version
 
