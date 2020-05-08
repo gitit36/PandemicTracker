@@ -31,7 +31,7 @@ class GuidelineScraper:
 
 		requestsWHO = requests.get("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen")
 		if (requestsWHO.status_code != 200):
-			return "Error: could not access WHO website."
+			return None
 
 		soupWHO = bs(requestsWHO.text,"html.parser")
 

@@ -27,7 +27,7 @@ class StatsScraper:
 	def scrapeCases(self):  # Scrapes the most recent case data
 
 		if self.checkVersion() == False:
-			return ("Stats database already up to date.", self.globalConfirmed, self.globalDeaths, self.globalRecovered)
+			return None
 
 		# Accessing the github pages
 		responseConfirmed = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
@@ -35,7 +35,7 @@ class StatsScraper:
 		responseRecovered = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
 
 		if (responseConfirmed.status_code != 200 or responseDeaths.status_code != 200 or responseRecovered.status_code != 200):
-			return "Error: could not access Johns Hopkins dataset."
+			return None
 
 		soupConfirmed = bs(responseConfirmed.text, "html.parser")
 		soupDeaths = bs(responseDeaths.text, "html.parser")

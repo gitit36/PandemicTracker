@@ -35,7 +35,7 @@ class HealthcareScraper:
 
 		requestsBeds = requests.get("https://www.indexmundi.com/facts/indicators/SH.MED.BEDS.ZS/rankings")
 		if (requestsBeds.status_code != 200):
-			return "Error: could not access IndexMundi dataset."
+			return None
 
 		soupBeds = bs(requestsBeds.text,"html.parser")
 
@@ -59,14 +59,14 @@ class HealthcareScraper:
 	def scrapeDocs(self):
 
 		if self.checkVersion() == False:
-			return "Doctors database already up to date."
+			return None
 
 		countries = []
 		docs = []
 
 		requestsDocs = requests.get("https://www.indexmundi.com/facts/indicators/SH.MED.PHYS.ZS/rankings")
 		if (requestsDocs.status_code != 200):
-			return "Error: could not access IndexMundi dataset."
+			return None
 
 		soupDocs = bs(requestsDocs.text,"html.parser")
 
@@ -91,9 +91,14 @@ class HealthcareScraper:
 
 	def scrapeHealthcare(self): # Calls the scrapers and merges the two dataframes
 
+		# Country name variations between this dataset and the main database, manually checked - will be used to harmonise them
+		missingHC = ["Czech Republic", "United States", "St. Kitts and Nevis", "Slovak Republic", "Korea", "The Bahamas", "Kyrgyz Republic", "Syrian Arab Republic", "St. Vincent and the Grenadines", "Lao PDR", "São Tomé and Principe", "Côte d'Ivoire", "Congo", "The Gambia", "St. Lucia", "Dem. Rep. Congo"]
+		JHHC = ["Czechia", "US", "Saint Kitts and Nevis", "Slovakia", "Korea, South", "Bahamas", "Kyrgyzstan", "Syria", "Saint Vincent and the Grenadines", "Laos", "Sao Tome and Principe", "Cote d'Ivoire", "Congo (Brazzaville)", "Gambia", "Saint Lucia", "Congo (Kinshasa)"]
+
 		dfBeds = self.scrapeBeds()
 		dfDocs = self.scrapeDocs()
 
 		dfHealthcare = pd.merge(dfDocs, dfBeds, on="countryName")
+		dfHealthcare = dfHealthcare.replace(missingHC, JHHC)
 
 		return dfHealthcare
