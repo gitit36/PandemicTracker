@@ -72,7 +72,7 @@
 	<header>
 		<!-- NavBar -->
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<a class="navbar-brand" href="http://127.0.0.1:5000/">Pandemic Tracker</a>
+			<a class="navbar-brand" href="http://127.0.0.1:5000/">PandemicTracker</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
 				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -80,18 +80,17 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries
-							&nbsp; </a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country &nbsp; </a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('getGuidlines') }}"> &nbsp; Health Guideline &nbsp; </a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('hello') }}"> &nbsp; About &nbsp; </a>
-					</li>
+	          <a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country List &nbsp; </a>
+	        </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries &nbsp; </a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="http://127.0.0.1:5000/health_guidelines"> &nbsp; Health Guidelines &nbsp; </a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="{{url_for('hello') }}"> &nbsp; About &nbsp; </a>
+	          </li>
 				</ul>
 			</div>
 		</nav>
