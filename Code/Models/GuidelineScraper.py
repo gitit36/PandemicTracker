@@ -8,6 +8,9 @@ import pandas as pd
 class GuidelineScraper:
 
 	def getListStart(self, soupWHO): # Finds the start of the article list within the page
+		if(len(soupWHO.find_all(class_="sf-content-block")) == 0): # If we didn't find the specific format block, then we're not in the right place (based on test case)
+			return None
+
 		for i in range(0,20):
 			if soupWHO.find_all(class_="sf-content-block")[i].contents[1].h2 is not None:
 				listStart = i+1
@@ -22,13 +25,18 @@ class GuidelineScraper:
 		contents = []
 		articleCounter = 0 # How many articles have been parsed/do we want
 
-		requestsWHO = requests.get("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen")
+		try: # If there is no internet access/requests fails for some reason, we just terminate
+			requestsWHO = requests.get("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen")
+		except:
+			return None
 		if (requestsWHO.status_code != 200):
 			return None
 
 		soupWHO = bs(requestsWHO.text,"html.parser")
 
 		listStart = self.getListStart(soupWHO)
+		if(listStart is None):
+			return None
 
 		for i in range(listStart, listStart+10): # Some extra leeway so that we get our five articles for sure
 			if(articleCounter < 5):

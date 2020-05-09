@@ -25,10 +25,12 @@ class HealthcareScraper:
 
 		countries = []
 		beds = []
-
-		requestsBeds = requests.get(
-			"https://www.indexmundi.com/facts/indicators/SH.MED.BEDS.ZS/rankings"
-		)
+		try: # If there is no internet access/requests fails for some reason, we just terminate
+			requestsBeds = requests.get(
+				"https://www.indexmundi.com/facts/indicators/SH.MED.BEDS.ZS/rankings"
+			)
+		except:
+			return None
 		if requestsBeds.status_code != 200:
 			return None
 
@@ -38,7 +40,10 @@ class HealthcareScraper:
 
 		for i in range(1, listEnd):
 
-			countryName = soupBeds.find_all("tr")[i].find_all("td")[1].text
+			try: # Sanity checking to make sure we're dealing with the right format (based on test case)
+				countryName = soupBeds.find_all("tr")[i].find_all("td")[1].text
+			except:
+				return None
 			countries.append(countryName)
 
 			numBeds = float(soupBeds.find_all("tr")[i].find_all("td")[2].text)
@@ -56,9 +61,12 @@ class HealthcareScraper:
 		countries = []
 		docs = []
 
-		requestsDocs = requests.get(
-			"https://www.indexmundi.com/facts/indicators/SH.MED.PHYS.ZS/rankings"
-		)
+		try: # If there is no internet access/requests fails for some reason, we just terminate
+			requestsDocs = requests.get(
+				"https://www.indexmundi.com/facts/indicators/SH.MED.PHYS.ZS/rankings"
+			)
+		except:
+			return None
 		if requestsDocs.status_code != 200:
 			return None
 
@@ -68,7 +76,10 @@ class HealthcareScraper:
 
 		for i in range(1, listEnd):
 
-			countryName = soupDocs.find_all("tr")[i].find_all("td")[1].text
+			try: # Sanity checking to make sure we're dealing with the right format (based on test case)
+				countryName = soupDocs.find_all("tr")[i].find_all("td")[1].text
+			except:
+				return None
 			countries.append(countryName)
 
 			numDocs = float(soupDocs.find_all("tr")[i].find_all("td")[2].text)
@@ -131,4 +142,3 @@ class HealthcareScraper:
 		dfHealthcare = dfHealthcare.replace(missingHC, JHHC)
 
 		return dfHealthcare
-

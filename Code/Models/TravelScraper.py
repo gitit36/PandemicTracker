@@ -14,11 +14,14 @@ class TravelScraper:
 		listEnd = 0
 
 		for i in range(90, 110):  # Some initial angling is done to speed up the search
-			if "flagicon" in str(
-				soupWiki.find_all("li")[i].contents[0]
-			):  # Every country entry contains a flag icon
-				listStart = i
-				break
+			try: # This is also a good time to detect if we're at the right place - if our angling fails at any point, just terminate (based on test case)
+				if "flagicon" in str(
+					soupWiki.find_all("li")[i].contents[0]
+				):  # Every country entry contains a flag icon
+					listStart = i
+					break
+			except:
+				return None
 
 		for j in range(listStart, 250):
 			if "flagicon" not in str(soupWiki.find_all("li")[j].contents[0]):
@@ -28,17 +31,20 @@ class TravelScraper:
 		return listStart, listEnd
 
 	def scrapeTravel(self):
-
-		travelWiki = requests.get(
-			"https://en.wikipedia.org/w/index.php?title=Travel_restrictions_related_to_the_COVID-19_pandemic&oldid=954913741"
-		)
+		try: # If there is no internet access/requests fails for some reason, we just terminate
+			travelWiki = requests.get(
+				"https://en.wikipedia.org/w/index.php?title=Travel_restrictions_related_to_the_COVID-19_pandemic&oldid=954913741"
+			)
+		except:
+			return None
 		if travelWiki.status_code != 200:
 			return None
 
 		soupWiki = bs(travelWiki.text, "html.parser")
 
 		listStart, listEnd = self.getListBoundaries(soupWiki)
-		print(listStart, listEnd)
+		if listStart is None or listEnd is None:
+			return None
 
 		travelAdv = ""
 		countries = []

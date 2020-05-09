@@ -20,9 +20,12 @@ class StatsScraper:
 	def scrapeCases(self):  # Scrapes the most recent case data
 
 		# Accessing the github pages
-		responseConfirmed = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
-		responseDeaths = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
-		responseRecovered = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
+		try: # If there is no internet access/requests fails for some reason, we just terminate
+			responseConfirmed = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
+			responseDeaths = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
+			responseRecovered = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
+		except:
+			return None
 
 		if (responseConfirmed.status_code != 200 or responseDeaths.status_code != 200 or responseRecovered.status_code != 200):
 			return None
@@ -44,10 +47,22 @@ class StatsScraper:
 			countryConfirmed = soupConfirmed.find("tr", id=row)  # Scoping onto one row
 			countryDeaths = soupDeaths.find("tr", id=row)
 
+			if countryConfirmed is None or countryDeaths is None: # If we're not finding anything in this format, we're on the wrong page - terminate (based on test case)
+				return None
+
 			countryName = countryConfirmed.find_all("td")[2].get_text()  # Getting the name
 			countries.append(countryName)
 
-			currentConfirmed = countryConfirmed.find_all("td")[todaysIndex].get_text()
+			# Making it smart about updates, based on a test case failure - if there is no data for the current day, it'll try the day before
+			try:
+				currentConfirmed = countryConfirmed.find_all("td")[todaysIndex].get_text()
+			except:
+				todaysIndex -= 1
+				try: # If the day before works, keep going like nothing happened with that date
+					currentConfirmed = countryConfirmed.find_all("td")[todaysIndex].get_text()
+				except: # Else, just return gracefully
+					return None
+
 			confirmed.append(int(currentConfirmed))
 			self.globalConfirmed += int(currentConfirmed)
 
