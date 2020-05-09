@@ -16,16 +16,19 @@ CountryList = CountryList()
 # Define a route to hello function
 @app.route("/")
 def hello():
+    Database.updateAll()
     data = Database.viewCountry()
     print(data)
     return render_template("home.html", countries=data)
 
+
 @app.route("/<string:theName>")
 def ownCountry(theName):
-    x = theName;
+    x = theName
     data = Database.searchCountry(x)
     print(data)
     return render_template("singleCountry.html", countries=data)
+
 
 # Define a route to country function
 @app.route("/country")  # , methods=["GET","POST"]'''
@@ -34,12 +37,14 @@ def countrystat():
     print(data)
     return render_template("country.html", countries=data)
 
+
 # Define a route to Compare Countries
 @app.route("/compare_countries")
 def countrycompare():
     data = Database.viewCountry()
     print(data)
     return render_template("compare_countries.html", countries=data)
+
 
 @app.route("/health_guidelines")
 def getGuidlines():

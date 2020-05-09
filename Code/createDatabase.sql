@@ -3,16 +3,8 @@ CREATE TABLE Country(
     numCases int, 
     numDeaths int,
     numRecovered int,
-    numTests int,
+    numDoctors int,
     numHospitalBeds int,
     latestTravelRestriction VARCHAR(1000),
     PRIMARY KEY (countryName)
-);
-
-
-CREATE TABLE Healthcare(
-    date datetime,
-    latestWHO TEXT, 
-    latestCDC TEXT,
-    PRIMARY KEY (date)
 );
