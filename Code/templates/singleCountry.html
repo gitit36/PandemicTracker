@@ -154,11 +154,9 @@
     <h5><u>Lastest Travel Restrictions:</u></h5>
     <div class="row">
       <div class="col"></div>
-      <div class="col"></div>
       <div class="col">
         <h6>{{country.latestTravelRestriction}}</b></h6>
       </div>
-      <div class="col"></div>
       <div class="col"></div>
     </div>
 
@@ -1174,54 +1172,10 @@
 
     var myCountries = {{ countries| tojson }};
     for (var i = 0; i < myCountries.length; i++) {
-<<<<<<< HEAD
       if(iso(myCountries[i].countryName) == "none") continue;
       document.getElementById(myCountries[i].countryName).src = "https://www.countryflags.io/"+iso(myCountries[i].countryName)+"/shiny/64.png";
-=======
-      if (iso(myCountries[i].countryName) == "none") continue;
-      document.getElementById(myCountries[i].countryName).src = "https://www.countryflags.io/" + iso(myCountries[i].countryName) + "/flat/64.png";
->>>>>>> changeScrapers
     }
   </script>
-
-  <!-- <div class="row">
-      <div class="col"></div>
-      <div class="col">
-        <table class="table">
-          <thead>
-            <th scope="col" style="width: 34%"></th>
-            <th scope="col"> {{country.countryName}} </th>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Number of Cases:</th>
-              <td>{{country.numCases}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Number of Deaths:</th>
-              <td>{{country.numDeaths}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Number of Recoveries:</th>
-              <td>{{country.numRecovered}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Number of Tests:</th>
-              <td>{{country.numDoctors}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Number of Hospital Beds:</th>
-              <td>{{country.numHospitalBeds}}</td>
-            </tr>
-
-            <tr>
-            <th scope="row">Latest Travel Restrictions:</th>
-            <td>{{country.latestTravelRestriction}}</td>
-            </tr>
-        </table>
-        </div>
-      <div class="col"></div>
-    </div> -->
   {% endfor %}
 
 
