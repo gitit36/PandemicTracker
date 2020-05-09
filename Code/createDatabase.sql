@@ -5,6 +5,6 @@ CREATE TABLE Country(
     numRecovered int,
     numDoctors int,
     numHospitalBeds int,
-    latestTravelRestriction VARCHAR(1000),
+    latestTravelRestriction VARCHAR(2000),
     PRIMARY KEY (countryName)
 );

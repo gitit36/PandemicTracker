@@ -56,27 +56,22 @@ class Database:
 
     def updateCountryHealthcare(self, country, numDoctors, numHospitalBeds):
         cursor = self.conn.cursor()
-        query = "UPDATE Country SET numDoctors = %d, numHospitalBeds = %d WHERE countryName = %s)"
-        cursor.execute(
-            query, (numDoctors, numHospitalBeds, country),
-        )
+        query = "UPDATE Country SET numDoctors = %s, numHospitalBeds = %s WHERE countryName = %s"
+        cursor.execute(query, (numDoctors, numHospitalBeds, country))
         self.conn.commit()
         cursor.close()
 
     def updateCountryStats(self, country, numCases, numDeaths, numRecovered):
         cursor = self.conn.cursor()
-        query = "UPDATE Country SET numCases = %d, numDeaths = %d, numRecovered = %d WHERE countryName = %s)"
-        cursor.execute(
-            query, (numCases, numDeaths, numRecovered, country),
-        )
+        query = "UPDATE Country SET numCases = %s, numDeaths = %s, numRecovered = %s WHERE countryName = %s"
+        cursor.execute(query, (numCases, numDeaths, numRecovered, country))
         self.conn.commit()
         cursor.close()
 
     def updateCountryTravelRestrictions(self, country, latestTravelRestriction):
         cursor = self.conn.cursor()
-        query = (
-            "UPDATE Country SET latestTravelRestriction = %s WHERE countryName = %s)"
-        )
+        query = "UPDATE Country SET latestTravelRestriction = %s WHERE countryName = %s"
+
         cursor.execute(query, (latestTravelRestriction, country))
         self.conn.commit()
         cursor.close()
@@ -95,26 +90,31 @@ class Database:
                 countryName = row["countryName"]
                 numDoctors = row["numDoctors"]
                 numHospitalBeds = row["numHospitalBeds"]
-                self.updateCountryHealthcare(countryName, numDoctors, numHospitalBeds)
+                self.updateCountryHealthcare(
+                    countryName, int(numDoctors), int(numHospitalBeds)
+                )
         print("hospital beds updated")
 
     def updateAllCoutriesStats(self):
         allCases = self.StatsScraper.scrapeCases()
-        if allCases == None:
+        df = allCases[0]
+
+        if df.empty:
             print("none")
         else:
-            df = allCases[0]
             for index, row in df.iterrows():
                 countryName = row["countryName"]
                 numCases = row["numCases"]
                 numDeaths = row["numDeaths"]
                 numRecovered = row["numRecovered"]
-                self.updateCountryStats(countryName, numCases, numDeaths, numRecovered)
+                self.updateCountryStats(
+                    countryName, int(numCases), int(numDeaths), int(numRecovered)
+                )
             print("stats updated")
 
     def updateAllCountriesTravel(self):
         travel = self.TravelScraper.scrapeTravel()
-        if travel == None:
+        if travel.empty:
             print("None")
         else:
             for index, row in travel.iterrows():
