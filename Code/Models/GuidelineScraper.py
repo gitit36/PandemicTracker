@@ -6,13 +6,6 @@ import requests
 import pandas as pd
 
 class GuidelineScraper:
-	lastScraped = date(2020, 4, 24)
-
-	def checkVersion(self): # Checks for last scraping time--scraping is only done if the current version is outdated
-		if self.lastScraped != date.today():
-			return True
-		else:
-			return False
 
 	def getListStart(self, soupWHO): # Finds the start of the article list within the page
 		for i in range(0,20):
@@ -73,7 +66,5 @@ class GuidelineScraper:
 		dfWHO = pd.DataFrame(dataWHO, columns=['title', 'date', 'content'])
 
 		print(dfWHO.to_string)
-
-		self.lastScraped = date.today() # Update dataset version
 
 		return dfWHO

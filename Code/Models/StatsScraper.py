@@ -6,16 +6,9 @@ import requests
 import pandas as pd
 
 class StatsScraper:
-	lastScraped = date(2020, 4, 24)
 	globalConfirmed = 0  # Global case data, stored as class variables for easy access
 	globalDeaths = 0
 	globalRecovered = 0
-
-	def checkVersion(self):  # Checks for last scraping time--scraping is only done if the current version is outdated
-		if self.lastScraped != date.today():
-			return True
-		else:
-			return False
 
 	def getTodaysIndex(self):
 		startDate = date(2020, 4, 24)  # Arbitrary date (the day this parser was first written!), used to calculate the list index
@@ -25,9 +18,6 @@ class StatsScraper:
 		return todaysIndex
 
 	def scrapeCases(self):  # Scrapes the most recent case data
-
-		if self.checkVersion() == False:
-			return None
 
 		# Accessing the github pages
 		responseConfirmed = requests.get("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
@@ -92,8 +82,6 @@ class StatsScraper:
 
 		dfAll = self.mergeDataFrames(dfConfD, dfRec)
 		print(dfAll.to_string())
-
-		self.lastScraped = date.today()  # Update dataset version
 
 		return dfAll, self.globalConfirmed, self.globalDeaths, self.globalRecovered
 
