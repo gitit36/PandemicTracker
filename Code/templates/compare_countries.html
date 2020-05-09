@@ -75,9 +75,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country List &nbsp; </a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country List &nbsp; </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries &nbsp; </a>
           </li>
@@ -207,7 +207,7 @@
               </tr>
 
               <tr>
-                <th scope="row">Number of Tests:</th>
+                <th scope="row">Number of Doctors:</th>
                 <td id="country1tests">0</td>
                 <td id="country2tests">0</td>
               </tr>
@@ -255,7 +255,7 @@
     document.getElementById("country1cases").innerHTML = myCountries[0].numCases;
     document.getElementById("country1deaths").innerHTML = myCountries[0].numDeaths;
     document.getElementById("country1recoveries").innerHTML = myCountries[0].numRecovered;
-    document.getElementById("country1tests").innerHTML = myCountries[0].numTests;
+    document.getElementById("country1tests").innerHTML = myCountries[0].numDoctors;
     document.getElementById("country1beds").innerHTML = myCountries[0].numHospitalBeds;
     if (myCountries[0].latestTravelRestriction == null) {
       document.getElementById("country1restrictions").innerHTML = "None";
@@ -267,7 +267,7 @@
     document.getElementById("country2cases").innerHTML = myCountries[1].numCases;
     document.getElementById("country2deaths").innerHTML = myCountries[1].numDeaths;
     document.getElementById("country2recoveries").innerHTML = myCountries[1].numRecovered;
-    document.getElementById("country2tests").innerHTML = myCountries[1].numTests;
+    document.getElementById("country2tests").innerHTML = myCountries[1].numDoctors;
     document.getElementById("country2beds").innerHTML = myCountries[1].numHospitalBeds;
     document.getElementById("country2restrictions").innerHTML = myCountries[1].latestTravelRestriction;
     if (myCountries[1].latestTravelRestriction == null) {
@@ -282,13 +282,14 @@
 
     function handleChange(id, name) {
       document.getElementById(id + "name").innerHTML = name;
-      var myCountries = {{ countries| tojson }};
+      var myCountries = {{ countries| tojson
+    }};
     for (var i = 0; i < myCountries.length; i++) {
       if (myCountries[i].countryName == name) {
         document.getElementById(id + "cases").innerHTML = myCountries[i].numCases;
         document.getElementById(id + "deaths").innerHTML = myCountries[i].numDeaths;
         document.getElementById(id + "recoveries").innerHTML = myCountries[i].numRecovered;
-        document.getElementById(id + "tests").innerHTML = myCountries[i].numTests;
+        document.getElementById(id + "tests").innerHTML = myCountries[i].numDoctors;
         document.getElementById(id + "beds").innerHTML = myCountries[i].numHospitalBeds;
         if (myCountries[i].latestTravelRestriction == null) {
           document.getElementById(id + "restrictions").innerHTML = "None"

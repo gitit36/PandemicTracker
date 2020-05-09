@@ -12,8 +12,10 @@
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"></link>
-		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+	</link>
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 	<!-- Favicons -->
 	<link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -80,17 +82,19 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-	          <a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country List &nbsp; </a>
-	        </li>
-	          <li class="nav-item">
-	            <a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries &nbsp; </a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link" href="http://127.0.0.1:5000/health_guidelines"> &nbsp; Health Guidelines &nbsp; </a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link" href="{{url_for('hello') }}"> &nbsp; About &nbsp; </a>
-	          </li>
+						<a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country List &nbsp; </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries
+							&nbsp; </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="http://127.0.0.1:5000/health_guidelines"> &nbsp; Health Guidelines
+							&nbsp; </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{url_for('hello') }}"> &nbsp; About &nbsp; </a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -129,18 +133,19 @@
 				tr:hover {
 					background-color: #f5f5f5;
 				}
+
 				table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-bottom: .5em;
-}
+				table.dataTable thead .sorting:before,
+				table.dataTable thead .sorting_asc:after,
+				table.dataTable thead .sorting_asc:before,
+				table.dataTable thead .sorting_asc_disabled:after,
+				table.dataTable thead .sorting_asc_disabled:before,
+				table.dataTable thead .sorting_desc:after,
+				table.dataTable thead .sorting_desc:before,
+				table.dataTable thead .sorting_desc_disabled:after,
+				table.dataTable thead .sorting_desc_disabled:before {
+					bottom: .5em;
+				}
 			</style>
 
 
@@ -151,7 +156,7 @@ bottom: .5em;
 						<th scope="col" class="th-sm">Num Cases</th>
 						<th scope="col" class="th-sm">Num Deaths</th>
 						<th scope="col" class="th-sm">Num Recovered</th>
-						<th scope="col" class="th-sm">Num Tests</th>
+						<th scope="col" class="th-sm">Num Doctors</th>
 						<th scope="col" class="th-sm">Num Hospital Beds</th>
 						<th scope="col" class="th-sm">Latest Travel Restriction</th>
 					</tr>
@@ -163,7 +168,7 @@ bottom: .5em;
 						<td>{{country.numCases}}</td>
 						<td>{{country.numDeaths}}</td>
 						<td>{{country.numRecovered}}</td>
-						<td>{{country.numTests}}</td>
+						<td>{{country.numDoctors}}</td>
 						<td>{{country.numHospitalBeds}}</td>
 						<td>{{country.latestTravelRestriction}}</td>
 					</tr>
@@ -173,19 +178,19 @@ bottom: .5em;
 			</table>
 
 			<script>
-			$(document).ready(function() {
-    var table = $('#myTable').removeAttr('width').DataTable( {
-        scrollY:        "400px",
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         false,
-				"searching": false,
-				"columnDefs": [ {
-					"targets": 6,
-					"orderable": false
-} ]
-    } );
-} );
+				$(document).ready(function () {
+					var table = $('#myTable').removeAttr('width').DataTable({
+						scrollY: "400px",
+						scrollX: true,
+						scrollCollapse: true,
+						paging: false,
+						"searching": false,
+						"columnDefs": [{
+							"targets": 6,
+							"orderable": false
+						}]
+					});
+				});
 			</script>
 
 

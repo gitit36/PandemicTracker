@@ -3,6 +3,7 @@ from Models.CountryList import CountryList
 from Models.StatsScraper import StatsScraper
 from Models.TravelScraper import TravelScraper
 from Models.HealthcareScraper import HealthcareScraper
+from datetime import date
 
 
 class Database:
@@ -24,6 +25,7 @@ class Database:
         self.totalDeaths = 0
         self.totalRecovered = 0
         self.totalCases = 0
+        self.date = 0
 
     def searchCountry(self, country):
         print(country)
@@ -37,7 +39,7 @@ class Database:
     ## displays all countries
     def viewCountry(self):
         cursor = self.conn.cursor()
-        query = "SELECT countryName, numCases, numDeaths, numRecovered, numTests, numHospitalBeds, latestTravelRestriction FROM Country"
+        query = "SELECT countryName, numCases, numDeaths, numRecovered, numDoctors, numHospitalBeds, latestTravelRestriction FROM Country"
         cursor.execute(query)
         data = cursor.fetchall()
         cursor.close()
@@ -79,23 +81,28 @@ class Database:
         self.conn.commit()
         cursor.close()
 
-    def updateAllCountriesHospitalBeds(self):
-        health = self.Healthcare.scrapeHealthcare()
-        if health:
-            for index, row in health.iterrows():
-                countryName = row["countryName"]
-                numDoctors = row["numDoctors"]
-                numHospitalBeds = row["numHospitalBeds"]
-                self.updateCountryHealthcare(countryName, numDoctors, numHospitalBeds)
-
     def updateWorldStats(self):
         self.totalCases = StatsScraper.globalConfirmed
         self.totalDeaths = StatsScraper.globalDeaths
         self.totalRecovered = StatsScraper.globalRecovered
 
+    def updateAllCountriesHospitalBeds(self):
+        health = self.Healthcare.scrapeHealthcare()
+        if health.empty:
+            print("health is none")
+        else:
+            for index, row in health.iterrows():
+                countryName = row["countryName"]
+                numDoctors = row["numDoctors"]
+                numHospitalBeds = row["numHospitalBeds"]
+                self.updateCountryHealthcare(countryName, numDoctors, numHospitalBeds)
+        print("hospital beds updated")
+
     def updateAllCoutriesStats(self):
         allCases = self.StatsScraper.scrapeCases()
-        if allCases:
+        if allCases == None:
+            print("none")
+        else:
             df = allCases[0]
             for index, row in df.iterrows():
                 countryName = row["countryName"]
@@ -103,18 +110,29 @@ class Database:
                 numDeaths = row["numDeaths"]
                 numRecovered = row["numRecovered"]
                 self.updateCountryStats(countryName, numCases, numDeaths, numRecovered)
-            print("updated all countries")
+            print("stats updated")
 
     def updateAllCountriesTravel(self):
         travel = self.TravelScraper.scrapeTravel()
-        for index, row in travel.iterrows():
-            countryName = row["countryName"]
-            latestTravelRestriction = row["travelAdv"]
-            self.updateCountryTravelRestrictions(countryName, latestTravelRestriction)
+        if travel == None:
+            print("None")
+        else:
+            for index, row in travel.iterrows():
+                countryName = row["countryName"]
+                latestTravelRestriction = row["travelAdv"]
+                self.updateCountryTravelRestrictions(
+                    countryName, latestTravelRestriction
+                )
+            print("travel updated")
 
-    def updateWorldStats(self):
-        self.updateAllCountriesHospitalBeds()
-        self.updateAllCoutriesStats()
-        self.updateAllCountriesTravel()
-        self.updateWorldStats()
+    def updateAll(self):
+        if date.today() == self.date:
+            return
+        else:
+            # self.updateAllCountriesHospitalBeds()
+            self.updateAllCoutriesStats()
+            self.updateAllCountriesTravel()
+            self.updateWorldStats()
+            print("everything was updated")
+            self.date = date.today()
 

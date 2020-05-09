@@ -5,100 +5,149 @@ from datetime import date
 import requests
 import pandas as pd
 
+
 class HealthcareScraper:
-	lastScraped = 0
+    lastScraped = 0
 
-	def checkVersion(self):  # Since this is general data, it only needs to be updated yearly
-		if self.lastScraped != date.today().year:
-			return True
-		else:
-			return False
+    def checkVersion(
+        self,
+    ):  # Since this is general data, it only needs to be updated yearly
+        if self.lastScraped != date.today().year:
+            return True
+        else:
+            return False
 
-	def getListEnd(self, soupSth): # IndexMundi is nicely formatted, meaning the country list ends when the actual list does
+    def getListEnd(
+        self, soupSth
+    ):  # IndexMundi is nicely formatted, meaning the country list ends when the actual list does
 
-		for i in range(1,200):
-			try:
-				test = soupSth.find_all("tr")[i].find_all("td")[2].text
-			except:
-				listEnd = i
-				break
+        for i in range(1, 200):
+            try:
+                test = soupSth.find_all("tr")[i].find_all("td")[2].text
+            except:
+                listEnd = i
+                break
 
-		return listEnd
+        return listEnd
 
-	def scrapeBeds(self):
+    def scrapeBeds(self):
 
-		if self.checkVersion() == False:
-			return "Beds database already up to date."
+        if self.checkVersion() == False:
+            return "Beds database already up to date."
 
-		countries = []
-		beds = []
+        countries = []
+        beds = []
 
-		requestsBeds = requests.get("https://www.indexmundi.com/facts/indicators/SH.MED.BEDS.ZS/rankings")
-		if (requestsBeds.status_code != 200):
-			return None
+        requestsBeds = requests.get(
+            "https://www.indexmundi.com/facts/indicators/SH.MED.BEDS.ZS/rankings"
+        )
+        if requestsBeds.status_code != 200:
+            return None
 
-		soupBeds = bs(requestsBeds.text,"html.parser")
+        soupBeds = bs(requestsBeds.text, "html.parser")
 
-		listEnd = self.getListEnd(soupBeds)
+        listEnd = self.getListEnd(soupBeds)
 
-		for i in range(1,listEnd):
-			
-			countryName = soupBeds.find_all("tr")[i].find_all("td")[1].text
-			countries.append(countryName)
-			
-			numBeds = float(soupBeds.find_all("tr")[i].find_all("td")[2].text)
-			beds.append(numBeds)
-			
-			print(countryName, numBeds)
+        for i in range(1, listEnd):
 
-		dataBeds = {'countryName': countries, 'numHospitalBeds': beds}
-		dfBeds = pd.DataFrame(dataBeds, columns=['countryName', 'numHospitalBeds'])
+            countryName = soupBeds.find_all("tr")[i].find_all("td")[1].text
+            countries.append(countryName)
 
-		return dfBeds
+            numBeds = float(soupBeds.find_all("tr")[i].find_all("td")[2].text)
+            beds.append(numBeds)
 
-	def scrapeDocs(self):
+            print(countryName, numBeds)
 
-		if self.checkVersion() == False:
-			return None
+        dataBeds = {"countryName": countries, "numHospitalBeds": beds}
+        dfBeds = pd.DataFrame(dataBeds, columns=["countryName", "numHospitalBeds"])
 
-		countries = []
-		docs = []
+        return dfBeds
 
-		requestsDocs = requests.get("https://www.indexmundi.com/facts/indicators/SH.MED.PHYS.ZS/rankings")
-		if (requestsDocs.status_code != 200):
-			return None
+    def scrapeDocs(self):
 
-		soupDocs = bs(requestsDocs.text,"html.parser")
+        if self.checkVersion() == False:
+            return None
 
-		listEnd = self.getListEnd(soupDocs)
+        countries = []
+        docs = []
 
-		for i in range(1,listEnd):
-			
-			countryName = soupDocs.find_all("tr")[i].find_all("td")[1].text
-			countries.append(countryName)
-			
-			numDocs = float(soupDocs.find_all("tr")[i].find_all("td")[2].text)
-			docs.append(numDocs)
-			
-			print(countryName, numDocs)
+        requestsDocs = requests.get(
+            "https://www.indexmundi.com/facts/indicators/SH.MED.PHYS.ZS/rankings"
+        )
+        if requestsDocs.status_code != 200:
+            return None
 
-		dataDocs = {'countryName': countries, 'numDoctors': docs}
-		dfDocs = pd.DataFrame(dataDocs, columns=['countryName', 'numDoctors'])
+        soupDocs = bs(requestsDocs.text, "html.parser")
 
-		self.lastScraped = date.today().year # Update dataset version
+        listEnd = self.getListEnd(soupDocs)
 
-		return dfDocs
+        for i in range(1, listEnd):
 
-	def scrapeHealthcare(self): # Calls the scrapers and merges the two dataframes
+            countryName = soupDocs.find_all("tr")[i].find_all("td")[1].text
+            countries.append(countryName)
 
-		# Country name variations between this dataset and the main database, manually checked - will be used to harmonise them
-		missingHC = ["Czech Republic", "United States", "St. Kitts and Nevis", "Slovak Republic", "Korea", "The Bahamas", "Kyrgyz Republic", "Syrian Arab Republic", "St. Vincent and the Grenadines", "Lao PDR", "São Tomé and Principe", "Côte d'Ivoire", "Congo", "The Gambia", "St. Lucia", "Dem. Rep. Congo"]
-		JHHC = ["Czechia", "US", "Saint Kitts and Nevis", "Slovakia", "Korea, South", "Bahamas", "Kyrgyzstan", "Syria", "Saint Vincent and the Grenadines", "Laos", "Sao Tome and Principe", "Cote d'Ivoire", "Congo (Brazzaville)", "Gambia", "Saint Lucia", "Congo (Kinshasa)"]
+            numDocs = float(soupDocs.find_all("tr")[i].find_all("td")[2].text)
+            docs.append(numDocs)
 
-		dfBeds = self.scrapeBeds()
-		dfDocs = self.scrapeDocs()
+            print(countryName, numDocs)
 
-		dfHealthcare = pd.merge(dfDocs, dfBeds, on="countryName")
-		dfHealthcare = dfHealthcare.replace(missingHC, JHHC)
+        dataDocs = {"countryName": countries, "numDoctors": docs}
+        dfDocs = pd.DataFrame(dataDocs, columns=["countryName", "numDoctors"])
 
-		return dfHealthcare
+        self.lastScraped = date.today().year  # Update dataset version
+
+        return dfDocs
+
+    def scrapeHealthcare(self):  # Calls the scrapers and merges the two dataframes
+
+        # Country name variations between this dataset and the main database, manually checked - will be used to harmonise them
+        missingHC = [
+            "Czech Republic",
+            "United States",
+            "St. Kitts and Nevis",
+            "Slovak Republic",
+            "Korea",
+            "The Bahamas",
+            "Kyrgyz Republic",
+            "Syrian Arab Republic",
+            "St. Vincent and the Grenadines",
+            "Lao PDR",
+            "São Tomé and Principe",
+            "Côte d'Ivoire",
+            "Congo",
+            "The Gambia",
+            "St. Lucia",
+            "Dem. Rep. Congo",
+        ]
+        JHHC = [
+            "Czechia",
+            "US",
+            "Saint Kitts and Nevis",
+            "Slovakia",
+            "Korea, South",
+            "Bahamas",
+            "Kyrgyzstan",
+            "Syria",
+            "Saint Vincent and the Grenadines",
+            "Laos",
+            "Sao Tome and Principe",
+            "Cote d'Ivoire",
+            "Congo (Brazzaville)",
+            "Gambia",
+            "Saint Lucia",
+            "Congo (Kinshasa)",
+        ]
+
+        dfBeds = self.scrapeBeds()
+        dfDocs = self.scrapeDocs()
+
+        print(dfBeds)
+        print(dfDocs)
+
+        dfHealthcare = pd.merge(dfDocs, dfBeds, on="countryName")
+        print("hi")
+
+        dfHealthcare = dfHealthcare.replace(missingHC, JHHC)
+
+        return dfHealthcare
+
