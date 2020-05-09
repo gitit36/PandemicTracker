@@ -1174,7 +1174,7 @@
     var myCountries = {{ countries| tojson }};
     for (var i = 0; i < myCountries.length; i++) {
       if(iso(myCountries[i].countryName) == "none") continue;
-      document.getElementById(myCountries[i].countryName).src = "https://www.countryflags.io/"+iso(myCountries[i].countryName)+"/flat/64.png";
+      document.getElementById(myCountries[i].countryName).src = "https://www.countryflags.io/"+iso(myCountries[i].countryName)+"/shiny/64.png";
     }
     </script>
 
