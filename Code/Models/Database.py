@@ -21,6 +21,9 @@ class Database:
         self.StatsScraper = StatsScraper()
         self.TravelScraper = TravelScraper()
         self.Healthcare = HealthcareScraper()
+        self.totalDeaths = 0
+        self.totalRecovered = 0
+        self.totalCases = 0
 
     def searchCountry(self, country):
         print(country)
@@ -76,7 +79,7 @@ class Database:
         self.conn.commit()
         cursor.close()
 
-    def updateCountryHospitalBeds(self, country):
+    def updateAllCountriesHospitalBeds(self):
         health = self.Healthcare.scrapeHealthcare()
         if health:
             for index, row in health.iterrows():
@@ -85,21 +88,12 @@ class Database:
                 numHospitalBeds = row["numHospitalBeds"]
                 self.updateCountryHealthcare(countryName, numDoctors, numHospitalBeds)
 
-        pass
-
-    def updateWHO(self):
-        pass
-
-    def updateCDC(self):
-        pass
-
     def updateWorldStats(self):
-        pass
+        self.totalCases = StatsScraper.globalConfirmed
+        self.totalDeaths = StatsScraper.globalDeaths
+        self.totalRecovered = StatsScraper.globalRecovered
 
-    # <<<<<<< HEAD
-
-    def updateAllCoutriesHealthcare(self):
-        # how do we  time this?
+    def updateAllCoutriesStats(self):
         allCases = self.StatsScraper.scrapeCases()
         if allCases:
             df = allCases[0]
@@ -118,6 +112,9 @@ class Database:
             latestTravelRestriction = row["travelAdv"]
             self.updateCountryTravelRestrictions(countryName, latestTravelRestriction)
 
+    def updateWorldStats(self):
+        self.updateAllCountriesHospitalBeds()
+        self.updateAllCoutriesStats()
+        self.updateAllCountriesTravel()
+        self.updateWorldStats()
 
-# =======
-# >>>>>>> 15caf204401816919fbd989800776cdc644c5c1a
