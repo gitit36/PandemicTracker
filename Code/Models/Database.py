@@ -129,10 +129,9 @@ class Database:
         if date.today() == self.date:
             return
         else:
-            # self.updateAllCountriesHospitalBeds()
+            self.updateAllCountriesHospitalBeds()
             self.updateAllCoutriesStats()
             self.updateAllCountriesTravel()
             self.updateWorldStats()
             print("everything was updated")
             self.date = date.today()
-
