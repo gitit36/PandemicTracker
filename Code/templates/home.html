@@ -61,68 +61,90 @@
             width: auto;
             margin-top: 0 !important
         }
-    </style>
-</head>
 
-<body>
-    <header>
-        <!-- NavBar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="color:#1CAB91">
-            <a class="navbar-brand" href="http://127.0.0.1:5000/">Pandemic Tracker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5000/compare_countries"> &nbsp; Compare Countries
-                            &nbsp; </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://127.0.0.1:5000/country"> &nbsp; Country &nbsp; </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('getGuidlines') }}"> &nbsp; Health Guideline &nbsp; </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('hello') }}"> &nbsp; About &nbsp; </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main role='main'>
-        <!-- Feed -->
-        {% if countries %}
-        <h1>Countries</h1>
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for country in countries %}
-                <p>{{country.countryName}}</p>
-                {% endfor %}
-            </div>
-        </div>
-        {% else %}
-        <div class="no-friends">
-            <h1>No countries</h1>
-        </div>
-        {% endif %}
-        <!-- End of  Feed -->
-        <!-- Follow Suggestions -->
-    </main>
+        body {
+            background-color: #333;
 
-    <html>
+        }
 
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    </head>
+        .stats-container {
+            display: flex;
+            flex-direction: row;
+            height: 50%;
+            width: 100%;
+            justify-content: center;
+        }
 
-    <style type="text/css">
-        table,
-        th,
-        td {
-            border: 1px solid black;
+        .individual-stat {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
         }
     </style>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+</head>
+
+<!-- <body class="text-center">
+    <header>
+        <!-- NavBar -->
+
+</header>
+
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <!-- <div class="inner">
+                <h3 class="masthead-brand">Cover</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="#">Contact</a>
+                </nav>
+            </div> -->
+        </header>
+        <main role="main" class="inner cover">
+            <div class="stats-container">
+                <div class="individual-stat">
+                    <h1>Global</h1>
+                    <p>100000</p>
+                </div>
+                <div class="individual-stat">
+                    <h1>Global</h1>
+                    <p>100000</p>
+                </div>
+                <div class="individual-stat">
+                    <h1>Global</h1>
+                    <p>100000</p>
+                </div>
+            </div>
+            <h1 class="cover-heading">Pandemic Tracker</h1>
+            <p class="lead">Get the most up to date information on COVID-19</p>
+            <p class="lead">
+                <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Project by us</p>
+            </div>
+        </footer>
+    </div>
+</body>

@@ -11,10 +11,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
-
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css"></link>
-		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-
 	<!-- Favicons -->
 	<link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 	<link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -130,31 +126,18 @@
 				tr:hover {
 					background-color: #f5f5f5;
 				}
-				table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-bottom: .5em;
-}
 			</style>
 
-
-			<table id="myTable" class="table-hover table-sm display" style="width:70%">
+			<table class="table table-hover" style="width:70%">
 				<thead>
 					<tr>
-						<th scope="col" class="th-sm">Country</th>
-						<th scope="col" class="th-sm">Num Cases</th>
-						<th scope="col" class="th-sm">Num Deaths</th>
-						<th scope="col" class="th-sm">Num Recovered</th>
-						<th scope="col" class="th-sm">Num Tests</th>
-						<th scope="col" class="th-sm">Num Hospital Beds</th>
-						<th scope="col" class="th-sm">Latest Travel Restriction</th>
+						<th scope="col">Country</th>
+						<th scope="col">Num Cases</th>
+						<th scope="col">Num Deaths</th>
+						<th scope="col">Num Recovered</th>
+						<th scope="col">Num Tests</th>
+						<th scope="col">Num Hospital Beds</th>
+						<th scope="col">Latest Travel Restriction</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -172,24 +155,6 @@ bottom: .5em;
 
 				</tbody>
 			</table>
-
-			<script>
-			$(document).ready(function() {
-    var table = $('#myTable').removeAttr('width').DataTable( {
-        scrollY:        "400px",
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         false,
-				"searching": false,
-				"columnDefs": [ {
-					"targets": 6,
-					"orderable": false
-} ]
-    } );
-} );
-			</script>
-
-
 
 
 		</center>
