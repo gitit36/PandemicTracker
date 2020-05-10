@@ -3,8 +3,8 @@ CREATE TABLE Country(
     numCases int,
     numDeaths int,
     numRecovered int,
-    numDoctors float(5),
-    numHospitalBeds float(5),
+    numDoctors float(20),
+    numHospitalBeds float(20),
     latestTravelRestriction VARCHAR(2000),
     PRIMARY KEY (countryName)
 );
