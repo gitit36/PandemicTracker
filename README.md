@@ -10,6 +10,7 @@ Maria Jaramillo (mdj308)
 
 </p>
 
+<p><h2><strong>How To Run</strong></h2>
 1. Install PyMySQL: 
 ```
 pip install PyMySQL
@@ -24,9 +25,9 @@ export FLASK_APP=init.py
 python -m flask run
 ```
  * Running on http://127.0.0.1:5000/
- 
- To populate the database, run the file, "run this once".
 
+To populate the database, run the file, "run this once".
+</p>
 
 <img width="730" alt="Screen Shot 2023-02-21 at 7 09 02 PM" src="https://user-images.githubusercontent.com/24204239/220314912-90ae5d42-41b8-4b9a-8351-480a72be6a63.png">
 
