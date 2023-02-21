@@ -3,10 +3,13 @@ A software engineering project about planning, designing, and creating a pandemi
 
 # Team Members
 
-Máté Hekfusz (mh5179)
-Daniel De Beer (ddb336)
-Sangjin David Lee (sl5583)
-Maria Jaramillo (mdj308)
+Sangjin David Lee
+
+Máté Hekfusz
+
+Daniel De Beer
+
+Maria Jaramillo
 
 
 # How To Run
