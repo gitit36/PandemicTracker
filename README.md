@@ -1,33 +1,30 @@
 # PandemicTracker
-<p>A software engineering project about planning, designing, and creating a pandemic data aggregation and tracking platform.</p>
+A software engineering project about planning, designing, and creating a pandemic data aggregation and tracking platform.
 
-<p><h2><strong>Team Members</strong></h2>
+# Team Members
 
-Máté Hekfusz (mh5179)<br>
-Daniel De Beer (ddb336)<br>
-Sangjin David Lee (sl5583)<br>
+Máté Hekfusz (mh5179)
+Daniel De Beer (ddb336)
+Sangjin David Lee (sl5583)
 Maria Jaramillo (mdj308)
 
-</p>
 
-<p><h2><strong>How To Run</strong></h2>
-1. Install PyMySQL:<br>
+# How To Run
+1. Install PyMySQL:
 ```
 pip install PyMySQL
 ```
-2. Download MAMP and crate a database with whichever name you choose. <br>
-3. Look at the `init.py` file, in the configure section, change your data to match your database<br>
-4. `render_template` functions will lead to files in the template folder. However, if you look at the HTML files, in the areas with "url_for," you have to reference a function within that route.<br>
-> Ex: home.html says "url_for("hello") instead of url_for("/")
-5. To run, do the following:<br>
+2. Download MAMP and crate a database with whichever name you choose. 
+3. Look at the `init.py` file, in the configure section, change your data to match your database
+4. `render_template` functions will lead to files in the template folder. However, if you look at the HTML files, in the areas with "url_for," you have to reference a function within that route. `Ex: home.html says "url_for("hello") instead of url_for("/")`
+5. To run, do the following:
 ```
 export FLASK_APP=init.py
 python -m flask run
 ```
- * Running on http://127.0.0.1:5000/<br>
+* Running on http://127.0.0.1:5000/
+* To populate the database, run the file, "run this once".
 
-To populate the database, run the file, "run this once".<br>
-</p>
 
 <img width="730" alt="Screen Shot 2023-02-21 at 7 09 02 PM" src="https://user-images.githubusercontent.com/24204239/220314912-90ae5d42-41b8-4b9a-8351-480a72be6a63.png">
 
