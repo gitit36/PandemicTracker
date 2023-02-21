@@ -4,8 +4,11 @@ A software engineering project about planning, designing, and creating a pandemi
 # Team Members
 
 Sangjin David Lee
+
 Máté Hekfusz
+
 Daniel De Beer
+
 Maria Jaramillo
 
 
