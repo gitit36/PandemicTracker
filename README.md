@@ -14,7 +14,7 @@ Maria Jaramillo (mdj308)
 
 <img width="274" alt="Screen Shot 2023-02-21 at 7 06 57 PM" src="https://user-images.githubusercontent.com/24204239/220314455-e8b16553-1f61-47e1-ae38-79a279a3a256.png">
 
-<img width="164" alt="Screen Shot 2023-02-21 at 7 07 04 PM" src="https://user-images.githubusercontent.com/24204239/220314481-c6402b9b-e099-4d7d-bf62-3cba040f59ae.png">
+<img width="390" alt="Screen Shot 2023-02-21 at 7 09 59 PM" src="https://user-images.githubusercontent.com/24204239/220315195-65fa91f3-1986-42d9-80a8-1d907b4fea21.png">
 
 <img width="391" alt="Screen Shot 2023-02-21 at 7 06 28 PM" src="https://user-images.githubusercontent.com/24204239/220314505-248dcf94-714e-42cf-add9-ed59be3686de.png">
 
