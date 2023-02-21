@@ -10,16 +10,21 @@ Maria Jaramillo (mdj308)
 
 </p>
 
-1. Install PyMySQL: pip install PyMySQL
-2. Download MAMP and crate a database with whichever name you choose. 
-3. Look at the init.py file, in the configure section, change your data to match your database
-4. the render_template functions will lead to files in the template folder. However, if you look at the html files, in the areas with "url_for," you have to reference a function within that route. (Ex: home.html says "url_for("hello")) instead of url_for("/")
-5. To run, do the following:
+1. Install PyMySQL: 
+```
+pip install PyMySQL
+```
+3. Download MAMP and crate a database with whichever name you choose. 
+4. Look at the `init.py` file, in the configure section, change your data to match your database
+5. `render_template` functions will lead to files in the template folder. However, if you look at the HTML files, in the areas with "url_for," you have to reference a function within that route. 
+> Ex: home.html says "url_for("hello") instead of url_for("/")
+6. To run, do the following:
 ```
 export FLASK_APP=init.py
 python -m flask run
 ```
  * Running on http://127.0.0.1:5000/
+ 
  To populate the database, run the file, "run this once".
 
 
