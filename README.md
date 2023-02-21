@@ -17,7 +17,7 @@ Maria Jaramillo
 ```
 pip install PyMySQL
 ```
-2. Download MAMP and crate a database with whichever name you choose
+2. Download MAMP and create a database with whichever name you choose
 3. Look at the `init.py` file, in the configure section, change your data to match your database
 4. `render_template` functions will lead to files in the template folder. However, if you look at the HTML files, in the areas with "url_for," you have to reference a function within that route `Ex: home.html says "url_for("hello") instead of url_for("/")`
 5. To run, do the following:
